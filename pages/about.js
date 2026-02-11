@@ -1,0 +1,32 @@
+import Link from 'next/link';
+import { Card } from 'react-bootstrap';
+import PageHeader from '@/components/PageHeader';
+import SiteDetails from '@/components/SiteDetails';
+
+export async function getStaticProps() {
+  // This fetches the specific "Abbot Pass Refuge Cabin" site for the About page
+  const res = await fetch('https://sites-api-yorj.vercel.app/api/sites/698ca298cf3f77b569b700ab');
+  const data = await res.json();
+
+  return { props: { site: data } };
+}
+
+export default function About(props) {
+  return (
+    <>
+      <PageHeader text="About the Developer: Lucas" />
+      <Card>
+        <Card.Body>
+          <p>Hi, I'm Lucas! I'm a 20-year-old developer with a passion for software development, video game editing, and building high-performance PCs.</p>
+          <p>I built this application to showcase historical sites across Canada using Next.js and MongoDB.</p>
+          <p>One of the most interesting sites in the database is the:</p>
+          <Link href="/sites/698ca298cf3f77b569b700ab" passHref>
+             Abbot Pass Refuge Cabin
+          </Link>
+          <br /><br />
+          <SiteDetails site={props.site} />
+        </Card.Body>
+      </Card>
+    </>
+  );
+}

@@ -1,27 +1,37 @@
 import { useAtom } from 'jotai';
 import { favouritesAtom } from '@/store';
 import { Row, Col, Container } from 'react-bootstrap';
-import PageHeader from '@/components/PageHeader';
 import SiteCard from '@/components/SiteCard';
 
 export default function Favourites() {
-  const [favouritesList] = useAtom(favouritesAtom); // [cite: 95]
+  // Get a reference to the favouritesList from the favouritesAtom [cite: 95]
+  const [favouritesList] = useAtom(favouritesAtom);
 
+  // If favouritesList does not have any items in it [cite: 99]
   if (favouritesList.length === 0) {
     return (
       <Container>
-        <PageHeader text="Nothing Here" subtext="Add some sites to your favourites to see them here!" /> {/* [cite: 100] */}
+        {/* Centered Blue Header to match your image requirement  */}
+        <div className="text-center p-5 mb-4 bg-light rounded-3">
+          <h1 className="text-primary display-4">Nothing Here</h1>
+          <p className="lead text-muted">Try adding a site to the list</p>
+        </div>
       </Container>
     );
   }
 
+  // If favouritesList has items in it [cite: 96]
   return (
     <Container>
-      <PageHeader text="Favourites" subtext="Your Favourite Sites" /> {/* [cite: 97] */}
-      <Row className="gy-4"> {/* [cite: 98] */}
-        {favouritesList.map(id => (
-          <Col lg={3} md={6} key={id}>
-            <SiteCard siteId={id} />
+      <div className="text-center p-5 mb-4 bg-light rounded-3">
+        <h1 className="text-primary display-4">Favourites</h1>
+        <p className="lead text-muted">Your Favourite Sites</p>
+      </div>
+      {/* Renders a single SiteCard for every item in the favourites array  */}
+      <Row className="gy-4">
+        {favouritesList.map((siteId) => (
+          <Col lg={3} md={6} key={siteId}>
+            <SiteCard siteId={siteId} />
           </Col>
         ))}
       </Row>

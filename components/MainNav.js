@@ -7,7 +7,7 @@ export default function MainNav() {
       <Navbar className="fixed-top navbar-dark bg-dark">
         <Container>
           {/* Updated Brand to use Link and point to "/"  */}
-          <Navbar.Brand as={Link} href="/">Your Name</Navbar.Brand>
+          <Navbar.Brand as={Link} href="/">Lucas Marques</Navbar.Brand>
           <Nav className="me-auto">
             {/* "Sites" link removed as per instructions  */}
             <Nav.Link as={Link} href="/about">About</Nav.Link>

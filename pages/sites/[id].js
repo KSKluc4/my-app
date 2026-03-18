@@ -1,26 +1,22 @@
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
-import PageHeader from '@/components/PageHeader';
 import SiteDetails from '@/components/SiteDetails';
 import Error from 'next/error';
 
 export default function Site() {
   const router = useRouter();
-  const { id } = router.query;
+  const { siteId } = router.query; // Extract siteId from the URL 
 
-  // Use the ID from the URL to fetch specific site data
-  const { data, error } = useSWR(id ? `${process.env.NEXT_PUBLIC_API_URL}/sites/${id}` : null);
+  // Fetch the specific site data using the siteId
+  const { data, error } = useSWR(
+    siteId ? `${process.env.NEXT_PUBLIC_API_URL}/sites/${siteId}` : null
+  );
 
-  if (error || (data && data.message)) {
-    return <Error statusCode={404} />;
-  }
-
-  if (!data) return null; 
+  if (error) return <Error statusCode={404} />;
+  if (!data) return null; // Loading state
 
   return (
-    <>
-      <PageHeader text={data.siteName} />
-      <SiteDetails site={data} />
-    </>
+    // Pass both the 'data' (as site) and the 'siteId' string to SiteDetails 
+    <SiteDetails site={data} siteId={siteId} />
   );
 }

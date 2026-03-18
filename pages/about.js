@@ -12,6 +12,9 @@ export async function getStaticProps() {
 }
 
 export default function About(props) {
+  // Define the hard-coded site ID used for this page
+  const staticSiteId = "698ca298cf3f77b569b700ab"; [cite: 75]
+
   return (
     <>
       <PageHeader text="About the Developer: Lucas" />
@@ -20,11 +23,16 @@ export default function About(props) {
           <p>Hi, I'm Lucas! I'm a 20-year-old developer with a passion for software development, video game editing, and building high-performance PCs.</p>
           <p>I built this application to showcase historical sites across Canada using Next.js and MongoDB.</p>
           <p>One of the most interesting sites in the database is the:</p>
-          <Link href="/sites/698ca298cf3f77b569b700ab" passHref>
-             Abbot Pass Refuge Cabin
+          <Link href={`/sites/${staticSiteId}`} passHref>
+              Abbot Pass Refuge Cabin
           </Link>
           <br /><br />
-          <SiteDetails site={props.site} />
+          {/* Update SiteDetails to include siteId and hide the Favourite button  */}
+          <SiteDetails 
+            site={props.site} 
+            siteId={staticSiteId} 
+            showFavouriteBtn={false} 
+          />
         </Card.Body>
       </Card>
     </>

@@ -6,11 +6,13 @@ export default function MainNav() {
     <>
       <Navbar className="fixed-top navbar-dark bg-dark">
         <Container>
-          {/* Replace 'Your Name' with your actual name */}
-          <Navbar.Brand>Your Name</Navbar.Brand>
+          {/* Updated Brand to use Link and point to "/"  */}
+          <Navbar.Brand as={Link} href="/">Your Name</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link as={Link} href="/">Sites</Nav.Link>
+            {/* "Sites" link removed as per instructions  */}
             <Nav.Link as={Link} href="/about">About</Nav.Link>
+            {/* Added Favourites link  */}
+            <Nav.Link as={Link} href="/favourites">Favourites</Nav.Link>
           </Nav>
         </Container>
       </Navbar>

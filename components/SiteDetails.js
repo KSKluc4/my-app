@@ -1,6 +1,35 @@
-import { Container, Row, Col } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { useAtom } from 'jotai';
+import { favouritesAtom } from '@/store'; // Ensure this path matches your store.js location
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
-export default function SiteDetails({ site }) {
+// Updated to accept siteId and showFavouriteBtn (default true) 
+export default function SiteDetails({ site, siteId, showFavouriteBtn = true }) {
+  // Get reference to favouritesList and the setter from favouritesAtom 
+  const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);
+  
+  // State to track if this site is currently a favourite [cite: 81]
+  // Initialized to true if the list includes siteId, false otherwise
+  const [showAdded, setShowAdded] = useState(favouritesList.includes(siteId));
+
+  // Keep showAdded in sync if favouritesList changes [cite: 81]
+  useEffect(() => {
+    setShowAdded(favouritesList.includes(siteId));
+  }, [favouritesList, siteId]);
+
+  // Function to handle the favourite button click [cite: 82]
+  const favouritesClicked = () => {
+    if (showAdded) {
+      // Remove siteId from the list [cite: 83-84]
+      setFavouritesList(current => current.filter(fav => fav != siteId));
+      setShowAdded(false);
+    } else {
+      // Add siteId to the list [cite: 85-86]
+      setFavouritesList(current => [...current, siteId]);
+      setShowAdded(true);
+    }
+  };
+
   return (
     <Container>
       <Row>
@@ -38,6 +67,17 @@ export default function SiteDetails({ site }) {
           <br />
           <h5>Region</h5>
           <p>{site.provinceOrTerritory.region}</p>
+
+          {/* Add Favourite Button if showFavouriteBtn is true [cite: 87] */}
+          {showFavouriteBtn && (
+            <Button 
+              variant={showAdded ? "primary" : "outline-primary"} // [cite: 88]
+              onClick={favouritesClicked} // [cite: 89]
+              className="mt-3"
+            >
+              {showAdded ? "+ Favourite (added)" : "+ Favourite"} {/* [cite: 90] */}
+            </Button>
+          )}
         </Col>
       </Row>
     </Container>

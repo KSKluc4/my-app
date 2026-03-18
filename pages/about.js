@@ -12,8 +12,8 @@ export async function getStaticProps() {
 }
 
 export default function About(props) {
-  // Define the hard-coded site ID used for this page
-  const staticSiteId = "698ca298cf3f77b569b700ab"; [cite: 75]
+  // Define the hard-coded site ID used for this page [cite: 75]
+  const staticSiteId = "698ca298cf3f77b569b700ab";
 
   return (
     <>
@@ -27,7 +27,7 @@ export default function About(props) {
               Abbot Pass Refuge Cabin
           </Link>
           <br /><br />
-          {/* Update SiteDetails to include siteId and hide the Favourite button  */}
+          {/* Update SiteDetails to include siteId and hide the Favourite button [cite: 75] */}
           <SiteDetails 
             site={props.site} 
             siteId={staticSiteId} 
